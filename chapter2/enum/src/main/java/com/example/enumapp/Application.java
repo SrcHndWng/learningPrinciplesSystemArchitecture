@@ -19,7 +19,7 @@ public class Application {
 
 	private void run() throws Exception {
 		Yen yen = feeFor("adult");
-        System.out.println("yen = " + yen.value());
+        System.out.println("yen = " + yen.value);
 
         FeeType adult = FeeType.valueOf("adult");
         FeeType child = FeeType.valueOf("child");
@@ -28,7 +28,7 @@ public class Application {
         reservation.addFee(adult.fee());
         reservation.addFee(child.fee());
         reservation.addFee(senior.fee());
-        System.out.println("feeTotal = " + reservation.feeTotal().value());
+        System.out.println("feeTotal = " + reservation.feeTotal().value);
     }
     
     private Yen feeFor(String feeTypeName){
