@@ -6,4 +6,9 @@ public class Amount{
     public Amount(int value){
         this.value = value;
     }
+
+    public boolean has(Amount amount){
+        // TODO: implement
+        return true;
+    }
 }
