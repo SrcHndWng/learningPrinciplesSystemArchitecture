@@ -3,7 +3,7 @@ package com.example.sampleDdd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-// TODO: application layer
+// TODO: application.scenario layer
 @Service
 public class BankAccountScenario{
     @Autowired

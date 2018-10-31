@@ -3,7 +3,7 @@ package com.example.sampleDdd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-// TODO: domain layer
+// TODO: application.service layer
 @Service
 public class BankAccountService{
     @Autowired
@@ -14,7 +14,7 @@ public class BankAccountService{
     }
 
     public boolean canWithdraw(Amount amount){
-        Amount balance = balance();
+        final Amount balance = balance();
         return balance.has(amount);
     }
 }

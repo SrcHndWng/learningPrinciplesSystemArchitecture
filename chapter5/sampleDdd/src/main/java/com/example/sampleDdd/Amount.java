@@ -8,7 +8,7 @@ public class Amount{
     }
 
     public boolean has(Amount amount){
-        // TODO: implement
+        // TODO: implement. return (this.value >= ammount.value).
         return true;
     }
 }

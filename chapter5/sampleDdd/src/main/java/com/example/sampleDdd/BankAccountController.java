@@ -15,7 +15,7 @@ public class BankAccountController {
     @GetMapping("/withdraw")
     @ResponseBody
     public Amount withdraw(@RequestParam(name="money", required=true) int money) {
-        Amount amount = new Amount(money);
+        final Amount amount = new Amount(money);
         return bankAccountScenario.withdraw(amount);
     }
 
