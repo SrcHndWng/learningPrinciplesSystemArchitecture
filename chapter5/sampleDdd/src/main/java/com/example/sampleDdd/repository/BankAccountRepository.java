@@ -1,4 +1,6 @@
-package com.example.sampleDdd;
+package com.example.sampleDdd.repository;
+
+import com.example.sampleDdd.domain.Amount;
 
 import org.springframework.stereotype.Service;
 

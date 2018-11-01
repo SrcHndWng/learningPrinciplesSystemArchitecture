@@ -1,11 +1,13 @@
-package com.example.sampleDdd;
+package com.example.sampleDdd.scenario;
 
+import com.example.sampleDdd.domain.Amount;
+import com.example.sampleDdd.service.BankAccountService;
+import com.example.sampleDdd.service.BankAccountUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-// TODO: application.scenario layer
 @Service
-public class BankAccountScenario{
+public class BankAccountScenario {
     @Autowired
     private BankAccountService queryService;
 

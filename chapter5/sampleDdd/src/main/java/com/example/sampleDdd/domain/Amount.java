@@ -1,4 +1,4 @@
-package com.example.sampleDdd;
+package com.example.sampleDdd.domain;
 
 public class Amount{
     public final int value;
