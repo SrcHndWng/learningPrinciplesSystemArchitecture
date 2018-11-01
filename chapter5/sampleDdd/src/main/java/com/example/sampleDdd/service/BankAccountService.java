@@ -1,7 +1,7 @@
 package com.example.sampleDdd.service;
 
 import com.example.sampleDdd.domain.Amount;
-import com.example.sampleDdd.repository.BankAccountRepository;
+import com.example.sampleDdd.repository.BankAccountDatasource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BankAccountService{
     @Autowired
-    private BankAccountRepository repository;
+    private BankAccountDatasource repository;
 
     public Amount balance(){
         return repository.balance();
