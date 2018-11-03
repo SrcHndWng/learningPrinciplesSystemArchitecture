@@ -8,7 +8,6 @@ public class Amount{
     }
 
     public boolean has(Amount amount){
-        // TODO: use repository
         return (this.value >= amount.value);
     }
 }

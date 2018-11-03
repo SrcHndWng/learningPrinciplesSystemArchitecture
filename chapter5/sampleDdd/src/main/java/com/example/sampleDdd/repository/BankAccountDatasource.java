@@ -7,12 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BankAccountDatasource implements BankAccountRepository{
     @Override
-    public boolean canWithdraw(Amount amount) {
-        // TODO: implement
-        return true;
-    }
-
-    @Override
     public Amount balance() {
         // TODO: implement
         return new Amount(10000);
