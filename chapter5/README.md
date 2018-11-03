@@ -2,6 +2,8 @@
 
 CHAPTER5を写経、改変したもの。
 
+Spring Bootにて実装。
+
 ## sampleDdd
 
 預金引き出しのサンプルソースを写経、改変したもの。
