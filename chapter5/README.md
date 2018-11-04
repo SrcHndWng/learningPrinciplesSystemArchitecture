@@ -8,7 +8,7 @@ Spring Bootにて実装。
 
 預金引き出しのサンプルソースを写経、改変したもの。
 
-* 実行コマンド
+* 実行コマンド例
 
     ```
     curl localhost:8080/withdraw?money=3000
