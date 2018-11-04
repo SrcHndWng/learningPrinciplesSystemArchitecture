@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,9 +26,7 @@ public class BankAccountDatasource implements BankAccountRepository{
                 statement.executeUpdate("drop table if exists amount");
                 statement.executeUpdate("create table amount (value integer)");
                 statement.executeUpdate("insert into amount values(10000)");
-                ResultSet rs = statement.executeQuery("select * from amount");
-                rs.next();
-                return new Amount(rs.getInt("value"));
+                return selectAmount(statement);
             }catch(SQLException e){
                 throw new RuntimeException(e);
             }
@@ -45,21 +44,32 @@ public class BankAccountDatasource implements BankAccountRepository{
                 Statement statement = connection.createStatement();
                 statement.setQueryTimeout(30);
 
-                ResultSet rs = statement.executeQuery("select * from amount");
-                rs.next();
-                final int currentValue = rs.getInt("value");
-                final int updateValue = currentValue - amount.value;
-                statement.executeUpdate("update amount set value =  " + updateValue);
+                final Amount currentAmount = selectAmount(statement);
+                final int updateValue = currentAmount.value - amount.value;
 
-                ResultSet updated = statement.executeQuery("select * from amount");
-                updated.next();
-                final int updatedValue = rs.getInt("value");
-                System.out.println("amount updated " + updatedValue);
+                final String updateSql = "update amount set value = ?";
+                try(PreparedStatement pstmt = connection.prepareStatement(updateSql)){
+                    pstmt.setInt(1, updateValue);
+                    pstmt.executeUpdate();
+                }
+
+                final Amount updatedAmount = selectAmount(statement);
+                System.out.println("amount updated " + updatedAmount.value);
             }catch(SQLException e){
                 throw new RuntimeException(e);
             }
         }catch(ClassNotFoundException e){
             throw new RuntimeException(e);
         }
-	}
+    }
+    
+    private Amount selectAmount(Statement statement){
+        try{
+            ResultSet rs = statement.executeQuery("select * from amount");
+            rs.next();
+            return new Amount(rs.getInt("value"));
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
