@@ -18,19 +18,14 @@ public class BankAccountDatasource implements BankAccountRepository{
         try{
             Class.forName("org.sqlite.JDBC");
 
-            try(Connection connection = DriverManager.getConnection("jdbc:sqlite:sample.db")){
-                Statement statement = connection.createStatement();
-                statement.setQueryTimeout(30);
-
-                // 仮の口座として毎回登録する
-                statement.executeUpdate("drop table if exists amount");
-                statement.executeUpdate("create table amount (value integer)");
-                statement.executeUpdate("insert into amount values(10000)");
+            try(Connection connection = createConnection()){
+                Statement statement = createStatement(connection);
+                this.initAmount(statement); // 仮の口座として毎回登録する
                 return selectAmount(statement);
-            }catch(SQLException e){
-                throw new RuntimeException(e);
             }
         }catch(ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }catch(SQLException e){
             throw new RuntimeException(e);
         }
     }
@@ -40,36 +35,51 @@ public class BankAccountDatasource implements BankAccountRepository{
 		try{
             Class.forName("org.sqlite.JDBC");
 
-            try(Connection connection = DriverManager.getConnection("jdbc:sqlite:sample.db")){
-                Statement statement = connection.createStatement();
-                statement.setQueryTimeout(30);
+            try(Connection connection = createConnection()){
+                Statement statement = createStatement(connection);
 
                 final Amount currentAmount = selectAmount(statement);
                 final int updateValue = currentAmount.value - amount.value;
-
-                final String updateSql = "update amount set value = ?";
-                try(PreparedStatement pstmt = connection.prepareStatement(updateSql)){
-                    pstmt.setInt(1, updateValue);
-                    pstmt.executeUpdate();
-                }
+                
+                updateAmount(connection, updateValue);
 
                 final Amount updatedAmount = selectAmount(statement);
                 System.out.println("amount updated " + updatedAmount.value);
-            }catch(SQLException e){
-                throw new RuntimeException(e);
             }
         }catch(ClassNotFoundException e){
             throw new RuntimeException(e);
-        }
-    }
-    
-    private Amount selectAmount(Statement statement){
-        try{
-            ResultSet rs = statement.executeQuery("select * from amount");
-            rs.next();
-            return new Amount(rs.getInt("value"));
         }catch(SQLException e){
             throw new RuntimeException(e);
+        }
+    }
+
+    private Connection createConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:sqlite:sample.db");
+    }
+
+    private Statement createStatement(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.setQueryTimeout(30);
+        return statement;
+    }
+
+    private void initAmount(Statement statement) throws SQLException {
+        statement.executeUpdate("drop table if exists amount");
+        statement.executeUpdate("create table amount (value integer)");
+        statement.executeUpdate("insert into amount values(10000)");
+    }
+    
+    private Amount selectAmount(Statement statement) throws SQLException {
+        ResultSet rs = statement.executeQuery("select * from amount");
+        rs.next();
+        return new Amount(rs.getInt("value"));
+    }
+
+    private void updateAmount(Connection connection, int updateValue) throws SQLException {
+        final String updateSql = "update amount set value = ?";
+        try(PreparedStatement pstmt = connection.prepareStatement(updateSql)){
+            pstmt.setInt(1, updateValue);
+            pstmt.executeUpdate();
         }
     }
 }
