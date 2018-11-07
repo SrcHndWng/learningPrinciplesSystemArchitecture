@@ -5,11 +5,14 @@ import java.util.List;
 
 import com.example.books.domain.BookSummary;
 import com.example.books.repository.BookSummaryRepository;
+import com.example.books.response.BookResponse;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 public class BookController {
@@ -18,12 +21,10 @@ public class BookController {
 
     @GetMapping("/list")
     @ResponseBody
-    public String list() throws ParseException {
+    public String list() throws ParseException, JSONException {
         List<BookSummary> books = repository.getBookSummary();
-		books.forEach(b -> {
-			System.out.println(b.toString());
-		});
-        return "{name: 'sample1', price: 100}";
+        BookResponse response = BookResponse.fromBooks(books);
+        return response.json();
     }
 
 }
