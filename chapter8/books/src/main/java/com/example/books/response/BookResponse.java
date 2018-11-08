@@ -2,6 +2,7 @@ package com.example.books.response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import com.example.books.domain.BookSummary;
 
@@ -16,6 +17,9 @@ public class BookResponse {
         for(BookSummary book : books){
             JSONObject json =  new JSONObject();
             json.put("title", book.title.value);
+            json.put("unitPrice", book.unitPrice.toString());
+            json.put("published", book.published.toString());
+            json.put("auther", book.auther.forApi());
             json.put("type", book.bookType.name());
             jsons.add(json);
         }
@@ -27,10 +31,10 @@ public class BookResponse {
     }
 
     public String json(){
-        String result = "";
+        StringJoiner  result = new StringJoiner(",");
         for(JSONObject json : jsons){
-            result += json.toString();
+            result.add(json.toString());
         }
-        return result;
+        return result.toString();
     }
 }

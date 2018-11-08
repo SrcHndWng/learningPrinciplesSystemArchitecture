@@ -12,4 +12,8 @@ public class Auther{
     public String toString(){
         return firstName + ", " + lastName;
     }
+
+    public String forApi(){
+        return firstName + " " + lastName;
+    }
 }
