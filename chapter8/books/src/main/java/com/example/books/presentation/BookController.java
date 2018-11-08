@@ -19,11 +19,11 @@ public class BookController {
     @Autowired
     private BookSummaryRepository repository;
 
-    @GetMapping("/list")
+    @GetMapping("/books")
     @ResponseBody
     public String list() throws ParseException, JSONException {
-        List<BookSummary> books = repository.getBookSummary();
-        BookResponse response = BookResponse.fromBooks(books);
+        final List<BookSummary> books = repository.getBookSummary();
+        final BookResponse response = BookResponse.fromBooks(books);
         return response.json();
     }
 

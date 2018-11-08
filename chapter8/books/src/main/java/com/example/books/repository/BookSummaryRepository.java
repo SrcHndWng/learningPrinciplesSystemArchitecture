@@ -20,18 +20,18 @@ public class BookSummaryRepository{
     public List<BookSummary> getBookSummary() throws ParseException {
         List<BookSummary> books = new ArrayList<BookSummary>();
 
-        Title title1 = new Title("title1");
-        Price unitPrice1 = new Price(1000);
-        LocalDate published1 = new LocalDate(createPublished("20180101"));
-        Auther auther1 = new Auther("first1", "last1");
-        BookType bookType1 = BookType.normal;
+        final Title title1 = new Title("title1");
+        final Price unitPrice1 = new Price(1000);
+        final LocalDate published1 = new LocalDate(createPublished("20180101"));
+        final Auther auther1 = new Auther("first1", "last1");
+        final BookType bookType1 = BookType.normal;
         books.add(new BookSummary(title1, unitPrice1, published1, auther1, bookType1));
         
-        Title title2 = new Title("title2");
-        Price unitPrice2 = new Price(2000);
-        LocalDate published2 = new LocalDate(createPublished("20180202"));
-        Auther auther2 = new Auther("first2", "last2");
-        BookType bookType2 = BookType.large;
+        final Title title2 = new Title("title2");
+        final Price unitPrice2 = new Price(2000);
+        final LocalDate published2 = new LocalDate(createPublished("20180202"));
+        final Auther auther2 = new Auther("first2", "last2");
+        final BookType bookType2 = BookType.large;
         books.add(new BookSummary(title2, unitPrice2, published2, auther2, bookType2));
         
         return books;

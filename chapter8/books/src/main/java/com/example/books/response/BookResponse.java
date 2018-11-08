@@ -15,7 +15,7 @@ public class BookResponse {
     private BookResponse(List<BookSummary> books) throws JSONException{
         jsons =  new ArrayList<JSONObject>();
         for(BookSummary book : books){
-            JSONObject json =  new JSONObject();
+            final JSONObject json =  new JSONObject();
             json.put("title", book.title.value);
             json.put("unitPrice", book.unitPrice.toString());
             json.put("published", book.published.toString());
@@ -26,12 +26,12 @@ public class BookResponse {
     }
 
     public static BookResponse fromBooks(List<BookSummary> books) throws JSONException {
-        BookResponse bookResponse = new BookResponse(books);
+        final BookResponse bookResponse = new BookResponse(books);
         return bookResponse;
     }
 
     public String json(){
-        StringJoiner  result = new StringJoiner(",");
+        final StringJoiner  result = new StringJoiner(",");
         for(JSONObject json : jsons){
             result.add(json.toString());
         }
