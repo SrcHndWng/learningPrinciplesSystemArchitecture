@@ -18,6 +18,10 @@ CHAPTER1を写経、改変したもの。
 
 「正しい数量を扱うための独自クラスを定義する」を写経、改変したもの。
 
+### quantity-go
+
+上記「Quantity」をGolangで実装したもの。
+
 ## chapter2
 
 CHAPTER2を写経、改変したもの。
